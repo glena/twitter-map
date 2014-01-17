@@ -1,12 +1,3 @@
-/*
-
-http://stackoverflow.com/questions/16427039/displaying-streaming-twitter-on-webpage-with-socket-io-node-js
-https://github.com/ttezel/twit
-https://dev.twitter.com/docs/api/1.1/get/statuses/firehose
-
-http://bost.ocks.org/mike/map/
-
-*/
 
 var express = require('express')
   , app = express()
