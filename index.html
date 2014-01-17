@@ -60,6 +60,81 @@
 			      
 			}
 
+			function getOpacity(hour)
+			{
+				hour -= 2;
+				if (hour < 0) hour += 24;
+
+				hour = Math.abs(hour-14);
+			
+				return hour / 14;
+			}
+
+			var now = new Date();
+			var lat_tz = [];
+			var range_tz = d3.range(-180,180,15);
+			for(var a in range_tz)
+			{
+				var lat = range_tz[a];
+				var tz = Math.floor(lat / 15)+1;
+				var from = projection([lat,0]);
+				var to = projection([lat+15,0]);
+				var hour = now.getHours() - (-1*now.getTimezoneOffset()/60) + tz;
+				if (hour >= 24) hour -= 24;
+				if (hour < 0) hour += 24;
+
+				opacity = getOpacity(hour);
+
+				lat_tz.push({
+					tz: tz,
+					latitude: lat,
+					width: to[0] - from[0],
+					x: from[0],
+					hour:hour,
+					day: (hour > 8 && hour < 20),
+					opacity: opacity
+				});
+				
+			}
+
+			var tzs = svg.selectAll("rect").data(lat_tz);
+			tzs.enter().append("rect")
+				.attr('x',function(e){
+					return e.x;
+				})
+				.attr('y',0)
+				.attr('width',function(e){
+					return e.width;
+				})
+				.attr('height',height)
+				.attr("fill-opacity", function(e){
+					return e.opacity;
+				})
+				.attr('fill',function(e){
+					return (e.day ? '#89d2ff' : '#0f1754');
+				})
+				.attr('stroke-width','0');
+
+			var tz_labels = svg.selectAll("text.tz").data(lat_tz);
+			tzs.enter().append("text")
+				.attr('class','tz')
+				.style("text-anchor", "middle")
+				.attr("x", function(e){
+					return e.x + e.width / 2;
+				})
+				.attr("y", 20)
+				.text(function(e){return e.tz;});
+
+			tzs.enter().append("text")
+				.attr('class','tz')
+				.style("text-anchor", "middle")
+				.attr("x", function(e){
+					return e.x + e.width / 2;
+				})
+				.attr("y", 40)
+				.text(function(e){return e.hour;});
+
+
 		</script>
 
 		<script src="/socket.io/socket.io.js"></script>
@@ -78,7 +153,7 @@
 					data = data.filter(function (t){
 						return t.created_at > timeLimit;
 					});
-					console.log(data.length);
+					//console.log(data.length);
 					renderData();
 				}
 			});
