@@ -1,0 +1,20 @@
+{
+  "name": "twiketing",
+  "version": "0.0.1",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Germán Lena",
+  "license": "ISC",
+  "dependencies": {
+    "twit": "~1.1.11",
+    "express": "~3.4.8",
+    "socket.io": "~0.9.16"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "description": "Analyze tweets",
+  "devDependencies": {}
+}

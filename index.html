@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style>
+
+			body{margin:0;overflow:hidden;}
+
+		</style>
+	</head>
+	<body>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<script>
+
+			var data = [];
+			var width = window.innerWidth,
+			    height = window.innerHeight;
+
+			if (width > height) 
+				width = height;
+			else
+				height = width;
+
+			var projection = d3.geo.mercator()
+			    .scale(135 * height / 847)
+			    .translate([width / 2, height / 2]);
+
+			var path = d3.geo.path()
+			    .projection(projection);
+
+			var svg = d3.select("body").append("svg")
+			    .attr("width", width)
+			    .attr("height", height);
+
+			d3.json("world.json", function(error, world) {
+				svg.append("path")
+					.datum( topojson.feature(world, world.objects.land) )
+					.attr("d", path);
+			});
+
+			function renderData()
+			{
+				var circles = svg.selectAll("circle").data(data);
+
+				circles.enter().append("circle")
+			        .attr("fill", "red")
+			        .attr("fill-opacity", "0.7")
+			        .attr("r", 0)
+			        .transition()
+			        .attr("r", "5");
+
+			    circles.exit().transition()
+			        .attr("r", 0)
+			        .remove();
+			    circles
+			        .attr("cx", function(d) { return d.position[0]; })
+			        .attr("cy", function(d) { return d.position[1]; });
+			      
+			}
+
+		</script>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var count = 0;
+			var socket = io.connect('http://localhost:8080');
+			socket.on('stream', function(tweet){
+				if (tweet.geo)
+				{
+
+					tweet.position = projection(tweet.geo.coordinates.reverse());
+					tweet.created_at = new Date(tweet.created_at);
+					data.push(tweet);
+					var timeLimit = new Date();
+					timeLimit.setMinutes(timeLimit.getMinutes() - 5);
+					data = data.filter(function (t){
+						return t.created_at > timeLimit;
+					});
+					console.log(data.length);
+					renderData();
+				}
+			});
+		</script>
+	</body>
+</html>
