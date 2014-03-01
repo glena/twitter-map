@@ -57,7 +57,7 @@ io.sockets.on('connection', function (socket) {
   console.log('Connections #' + connCount);
 
   tweetsCol.find().toArray( function(err, loadedTweets) {
-    io.sockets.emit('stream', loadedTweets); 
+    socket.emit('stream', loadedTweets); 
   });
   
 
