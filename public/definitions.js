@@ -125,12 +125,12 @@ function loadTweets(tweets)
 		{
 			tweet.position = projection(tweet.geo);
 			data.push(tweet);
-			renderData();
 			renderTweets();
 
 			tweetsCount.html('Last ' + data.length + ' tweets.');
 		}
 	});
+	renderData();
 }
 
 function renderTweets()
