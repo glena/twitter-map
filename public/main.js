@@ -114,7 +114,7 @@ d3.json("world.json", function(error, world) {
 		socket = io.connect('/');
 		socket.on('stream', function(tweets){
 
-			loadTweets(last);
+			loadTweets(tweets);
 			
 		});	
 	});
