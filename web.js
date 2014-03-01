@@ -45,6 +45,11 @@ app.get('/main.css', function (req, res) {
 app.get('/world.json', function (req, res) {
   res.sendfile(__dirname + '/public/world.json');
 });
+app.get('/lastdata.json', function (req, res) {
+  tweetsCol.find().toArray( function(err, loadedTweets) {
+    res.send(loadedTweets);
+  });
+});
 
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
@@ -55,11 +60,6 @@ io.sockets.on('connection', function (socket) {
   connCount++;
   console.log('New Socket');
   console.log('Connections #' + connCount);
-
-  tweetsCol.find().toArray( function(err, loadedTweets) {
-    socket.emit('stream', loadedTweets); 
-  });
-  
 
   socket.on('disconnect', function () {
     connCount--;

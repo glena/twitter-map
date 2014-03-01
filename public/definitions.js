@@ -115,6 +115,24 @@ function setTimeZone()
 	svg.selectAll("circle").moveToFront();
 }
 
+function loadTweets(tweets)
+{
+	tweets.forEach(function(tweet){
+
+		tweet.created_at = new Date(tweet.created_at);
+
+		if (tweet.geo)
+		{
+			tweet.position = projection(tweet.geo);
+			data.push(tweet);
+			renderData();
+			renderTweets();
+
+			tweetsCount.html('Last ' + data.length + ' tweets.');
+		}
+	});
+}
+
 function renderTweets()
 {
 	var tweets = tweetsWrapper.selectAll('div.tweet').data(data);

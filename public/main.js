@@ -107,25 +107,18 @@ d3.json("world.json", function(error, world) {
 		setTimeZone();
 	}
 
+	d3.json("lastdata.json", function(error,last) {
+		
+		loadTweets(last);
+		
+		socket = io.connect('/');
+		socket.on('stream', function(tweets){
 
-	socket = io.connect('/');
-	socket.on('stream', function(tweets){
-
-		tweets.forEach(function(tweet){
-
-			tweet.created_at = new Date(tweet.created_at);
-
-			if (tweet.geo)
-			{
-				tweet.position = projection(tweet.geo);
-				data.push(tweet);
-				renderData();
-				renderTweets();
-
-				tweetsCount.html('Last ' + data.length + ' tweets.');
-			}
-		});
-	});	
+			loadTweets(last);
+			
+		});	
+	});
+	
 });
 
 d3.select(self.frameElement).style("height", height + "px");
