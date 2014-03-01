@@ -8,6 +8,12 @@ var express = require('express')
   , mongo = require('mongodb')
   , io = require('socket.io').listen(server, { log: false });
 
+
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
+
 var mongoUri = process.env.MONGOHQ_URL ||
               'mongodb://localhost/twinalizer';
 
@@ -16,7 +22,6 @@ var tweetsCol;
 mongo.Db.connect(mongoUri, function (err, db) {
   db.collection('tweets', function(er, collection) {
     
-    console.log('Mongo Connected');
     tweetsCol = collection;
 
   });
@@ -45,28 +50,23 @@ app.get('/main.css', function (req, res) {
 app.get('/world.json', function (req, res) {
   res.sendfile(__dirname + '/public/world.json');
 });
+
 app.get('/lastdata.json', function (req, res) {
-  tweetsCol.find().toArray( function(err, loadedTweets) {
+  tweetsCol.find().limit(1000).sort({ created_at: -1 }).toArray( function(err, loadedTweets) {
+
+    loadedTweets.forEach(function (t) {
+      t.created_at=new Date(t.created_at);  
+    });
+    
+
+    loadedTweets = loadedTweets.sort(function(a,b){
+      return a.created_at - b.created_at;
+    });
+
     res.send(loadedTweets);
   });
 });
 
-io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
-
-io.sockets.on('connection', function (socket) {  
-  connCount++;
-  console.log('New Socket');
-  console.log('Connections #' + connCount);
-
-  socket.on('disconnect', function () {
-    connCount--;
-    console.log('Socket Disconnected');
-    console.log('Connections #' + connCount);
-  });
-});
 
 var T = new Twit({
     consumer_key:         data.config.consumer_key
@@ -76,18 +76,6 @@ var T = new Twit({
 });
 
 var stream = T.stream('statuses/filter', { track: 'venezuela' });
-
-stream.on('connect', function (request) {
-  console.log('Twitter Connected');
-});
-
-stream.on('disconnect', function (request) {
-  console.log('Twitter Disconnected');
-});
-
-stream.on('reconnect', function (request) {
-  console.log('Twitter Reconnected');
-});
 
 stream.on('tweet', function (tweet) {
   if (tweet.geo)
