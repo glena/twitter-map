@@ -1,0 +1,136 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
+
+body{
+  margin:0;
+  font: normal 14px/1.5  'Roboto Condensed', sans-serif;
+  margin:0;
+}
+.map{
+	float: left;
+}
+.tweets{
+	float: right;
+	overflow: auto;
+	font-size: 12px;
+  width: 400px;
+}
+.about {
+    float:right;
+    font-size: 15px;
+    text-align:left;
+    padding-bottom: 10px;
+    width: 390px;
+    padding: 0 5px;
+}
+h1 {
+	font-size: 15px;
+	line-height: 30px;
+	margin: 0;
+}
+h2 {
+	font-size: 15px;
+	line-height: 20px;
+	margin: 0;
+}
+#tweetsCount{
+	font-size: 14px;
+}
+.about a,
+.about a:hover,
+.about a:visited{
+	color:#FF0085;
+	text-decoration: underline;
+}
+.tweet{
+	color:#666666;
+	padding: 5px;
+	border-bottom: 1px solid #666666;
+}
+.tweet.d3-tip {
+	border-bottom: none;
+	color:#FFFFFF;
+}
+.tweet .user{
+	color:#008cff;
+}
+.tweet .text{
+	padding:5px 0;
+}
+.tweet a,
+.tweet a:hover,
+.tweet a:visited{
+	color:#008cff;
+	text-decoration: underline;
+}
+
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  width: 400px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Northward tooltips */
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+/* Eastward tooltips */
+.d3-tip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+
+/* Southward tooltips */
+.d3-tip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
+
+/* Westward tooltips */
+.d3-tip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
+}
+
+.night {
+  stroke: #000000;
+  fill: #000000;
+  fill-opacity: .6;
+}
+.opensource {
+  clear: both;
+  padding: 10px;
+  text-align: center;
+}
+.opensource a,
+.opensource a:hover,
+.opensource a:visited{
+  color:#FF0085;
+  text-decoration: underline;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="/main.css">
+		<title>Twenalizer - Germán Lena</title>
+		<meta name="description" content="Twenalizer. Track tweets and show them on a map. Author: Germán Lena">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<div class="map">
+		    <svg>
+		        <defs>
+    		        <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      					<stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                    	<stop offset="100%" style="stop-color:rgb(255,140,0);stop-opacity:0" />
+                    </radialGradient>
+                </defs>
+		    </svg>
+		</div>
+		<div class="about">
+			<h1>Twenalizer - Germán Lena - <a href="http://germanlena.com.ar">http://germanlena.com.ar</a></h1>
+			<h2>Tracking tweets about Venezuela</h2>
+			<div id="tweetsCount">Loading tweets...</div>
+		</div>
+		<div class="tweets"></div>
+		<div class="opensource">
+			And yes, it's Open Source! Check: <a href="https://github.com/glena/twinalizer">https://github.com/glena/twinalizer</a>
+		</div>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="/d3.tip.js"></script>
+		<script src="http://d3js.org/topojson.v1.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-47245206-1', 'twenalizer.herokuapp.com');
+			ga('send', 'pageview');
+		</script>
+		<script src="/definitions.js"></script>
+		<script src="/main.js"></script>
+	</body>
+</html>

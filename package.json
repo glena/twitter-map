@@ -10,7 +10,8 @@
   "dependencies": {
     "twit": "~1.1.11",
     "express": "~3.4.8",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "mongodb": "*"
   },
   "engines": {
     "node": "0.10.x"
