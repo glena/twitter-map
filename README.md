@@ -28,6 +28,19 @@ News
 * Stores the loaded tweets on MongoDB
 * When it receives a new websocket connections, sends all the stored tweets.
 
+------------------------------------------------------------------------------
+
+config.js
+=========
+
+exports.config = {
+    consumer_key:         ''
+  , consumer_secret:      ''
+  , access_token:         ''
+  , access_token_secret:  ''
+}
+
+
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/glena/twinalizer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
