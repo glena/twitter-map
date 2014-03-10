@@ -30,12 +30,9 @@ function renderData()
 	var timeLimit6 = (new Date()).setMinutes(timeLimit.getMinutes() - 120);
 
 	circles.enter().append("circle")
-        .attr("fill", "url(#grad1)")
-        .attr("r", 0)
+        .attr("fill", "rgb(255,140,0)")
         .on('mouseover', tip.show)
-  		.on('mouseout', tip.hide)
-        .transition()
-        .attr("r", "7");
+  		.on('mouseout', tip.hide);
 
     circles.exit().transition()
         .attr("r", 0)
@@ -45,13 +42,18 @@ function renderData()
         .attr("cx", function(d) { return d.position[0]; })
         .attr("cy", function(d) { return d.position[1]; })
         .attr("fill-opacity", function(t){
-            if (t.created_at < timeLimit6) return 0.3;
-			if (t.created_at < timeLimit5) return 0.4;
-			if (t.created_at < timeLimit4) return 0.5;
-			if (t.created_at < timeLimit3) return 0.6;
+            if (t.created_at < timeLimit6) return 0.1;
+			if (t.created_at < timeLimit5) return 0.2;
+			if (t.created_at < timeLimit4) return 0.3;
+			if (t.created_at < timeLimit3) return 0.5;
 			if (t.created_at < timeLimit2) return 0.7;
 			if (t.created_at < timeLimit1) return 0.8;
 			return 0.9;
+        })
+        .attr("r", function(t){
+			if (t.created_at < timeLimit4) return 5;
+			if (t.created_at < timeLimit2) return 4;
+			return 3;
         });
       
 }
