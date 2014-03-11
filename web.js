@@ -94,19 +94,18 @@ stream.on('tweet', function (tweet) {
   }
 });
 
-/*
+
+
+
 function filter()
 {
-  console.log('Tweets #' + loadedTweets.length);
-
-  if (loadedTweets.length > 1000)
-  {
-    var removed = loadedTweets.shift();
-
-    console.log('removed');
-    console.log(removed);
-  }
+    tweetsCol.find().sort({ created_at: -1 }).skip(1000).toArray( function(err, items) {
+        items.forEach(function(e){
+            tweetsCol.remove( {"_id": e._id}, function(){
+            
+            });
+        });
+    });
 }
 
 setInterval(filter, 60*1000);
-*/
