@@ -42,4 +42,4 @@ exports.config = {
 
 
 
-[![Analytics](https://ga-beacon.appspot.com/UA-51467836-1/glena/twinalizer)](https://germanlena.com.ar)
+[![Analytics](https://ga-beacon.appspot.com/UA-51467836-1/glena/twinalizer)](http://germanlena.com.ar)
